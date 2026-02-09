@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+
+        </title>
+    </head>
+    <body>
+        <script src="./redux.js"></script>
+        <script>
+            //create a store
+            const{ createStore , combineReducers }=Redux
+
+            //create countReducer
+            const initialState=0;
+            const countReducer=(state=initialState,action)=>{
+                switch(action.type){
+                    case'INCREMENT':{
+                        return state+1;
+                    }
+                    case'DECREMENT':{
+                        return state-1
+                    }
+                    case 'RESET':{
+                        return state=0;
+                    }
+                    case 'INCBY':{
+                        return state +action.payload
+                    }
+                    default:return state
+                    
+                }
+            }
+            const store=createStore(combineReducers({
+                count:countReducer
+            }))
+            console.log(store)
+            console.log(store.getState())
+            
+            store.subscribe(()=>{
+                console.log(store.getState())
+            })
+            const increment=()=>{
+                return{
+                    type:"INCREMENT"
+                }
+            }
+            const decrement=()=>{
+                return {
+                    type:"DECREMENT"
+                }
+            }
+            const reset=()=>{
+                return{
+                    type:"RESET"
+                }
+            }
+            const incBy=(n)=>{
+                return {
+                    type:"INCBY",payload:n
+                }
+            }
+
+            store.dispatch(increment())
+            store.dispatch(increment())
+            store.dispatch(reset())
+            store.dispatch(incBy(5))
+            
+
+        </script>
+
+    </body>
+</html>
