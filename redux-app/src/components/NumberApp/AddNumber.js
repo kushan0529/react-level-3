@@ -7,8 +7,13 @@ export default function AddNumber(){
     const dispatch=useDispatch();
     const handleSubmit=(e)=>{
         e.preventDefault()
-        const num=Number(number)
+        const num={
+            id:Date.now(),
+            value:Number(number)
+        }
+        
         dispatch(addNumber(num))
+        setNumber('')
     }
     return<div>
         <form onSubmit={handleSubmit}>
